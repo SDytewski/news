@@ -7,6 +7,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
+const Article = require("./models/Article");
 
 
 // Our scraping tools
@@ -14,8 +15,7 @@ const exphbs = require("express-handlebars");
 // It works on the client and on the server
 
 
-// Require all models
-var db = require("./models");
+
 
 var PORT = 3000;
 
@@ -33,9 +33,14 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost/mongoHeadlines");
 
-// Routes
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error'));
+db.once('open' ,function(){
+  console.log('Connected to Mongoose!');
+})
 
 
 // A GET route for scraping the echoJS website
@@ -55,11 +60,15 @@ app.get("/scrape", function(req, res) {
     //My code
     
     let title = $(element).find("h3.title").text();
+    let url = $(element).find("a").attr('href');
+    let discription = $(element).find("p.teaser").text();
     //let link = $(element).find("a").attr("href");
 
     // Save these results in an object that we'll push into the results array we defined earlier
     results.push({
       title: title,
+      link: url,
+      discription: discription
     
     
     
@@ -85,6 +94,15 @@ app.get("/scrape", function(req, res) {
     
       
     });
+    let entry = new Article(results);
+    entry.save(function(err, doc){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("article added to DB");
+      }
+    })
     console.log(results);
 
     });
