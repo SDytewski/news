@@ -7,7 +7,8 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
-const Article = require("./models/Article");
+const db = require("./models");
+
 
 
 // Our scraping tools
@@ -38,11 +39,11 @@ mongoose.connect("mongodb://localhost/mongoHeadlines", { useNewUrlParser: true }
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function () {
-  console.log('Connected to Mongoose!');
-})
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error'));
+// db.once('open', function () {
+//   console.log('Connected to Mongoose!');
+// })
 
 
 // A GET route for scraping the echoJS website
@@ -115,7 +116,7 @@ app.get("/scrape", function (req, res) {
 
 
 app.get("/articles", function (req, res) {
-  Article.find({}).limit(20).exec(function (error, doc) {
+  db.Article.find({}).limit(20).exec(function (error, doc) {
     if (error) {
       console.log(error);
     }
@@ -143,16 +144,16 @@ app.get("/articles/:id", function (req, res) {
 });
 
 
-// app.post("/api/note", (req, res) => {
-//   db.Note
-//   .create({body: req.body.body})
-//   .then(dbNote => {
-//     res.json(dbNote)
+app.post("/api/note", (req, res) => {
+  db.Note
+  .create({body: req.body.body})
+  .then(dbNote => {
+    res.json(dbNote)
 
 
-//   }).catch(err =>res.json(err));
+  }).catch(err =>res.json(err));
 
-// });
+});
 
 
 // Route for saving/updating an Article's associated Note
