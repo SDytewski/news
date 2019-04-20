@@ -98,6 +98,10 @@ $(document).on("click", "#savenote", function() {
   $("#bodyinput").val("");
 });
 
+//Could not get delete note function to work, spent lots of time on this.
+// Did not get to do saved articles.  Below is code I tried using.
+
+
 // $(document).on("click", "#deletenote", function() {
 //   console.log("hello")
 //  // var thisNote = $(this).attr("data-id");

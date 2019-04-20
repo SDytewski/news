@@ -168,6 +168,11 @@ app.get("/note/:id", (req, res) => {
 
 })
 
+//Could not get delete note function to work, spent lots of time on this.
+// Did not get to do saved articles either. Would love to learn how to do these next office hour. Below
+// is the code I tried using.
+
+
 // app.delete("/note/:id", (req, res) => {
 //   db.Note.findOneAndRemove({ _id: req.params.note_id  }, function (err) {
 //     // Log any errors
