@@ -18,7 +18,7 @@ const db = require("./models");
 
 
 
-var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
 // Initialize Express
 var app = express();
@@ -33,20 +33,14 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to the Mongo DB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose
-    .connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
-        if(err) throw err;
-        console.log("Database Connected!");
-    });
 
-
-// mongoose.Promise = global.Promise;
-// mongoose.connect(MONGODB_URI);
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useCreateIndex', true);
+// Connect to the Mongo DB
+mongoose.Promise = global.Promise;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 // var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error'));
@@ -81,7 +75,7 @@ app.get("/scrape", function (req, res) {
 
 
       // });
-      let entry = new Article(results);
+      let entry = new db.Article(results);
       entry.save(function (err, doc) {
         if (err) {
           console.log(err);
