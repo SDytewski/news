@@ -23,7 +23,7 @@ This is the landing page that shows all the articles with a header, link and des
 
 **Example 2** 
 
-If I go to my localhost:3000/scrape route, I get the newest articles and a "scarpe" is complete.
+If I click "scrape new articles", I get the newest articles and a "scarpe" is complete.
 
 
 ![first-prompt](public/assets/images/news2.png)
