@@ -15,6 +15,7 @@ $(document).on("click", "p", function() {
   $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
+  
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -32,6 +33,7 @@ $(document).on("click", "p", function() {
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+      $("#notes").append("<button data-id='" + data._id + "' id='deletenote'>Delete Note</button>");
 
       // If there's a note in the article
       if (data.note) {
@@ -42,6 +44,10 @@ $(document).on("click", "p", function() {
       }
     });
 });
+
+
+
+
 
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
@@ -66,6 +72,38 @@ $(document).on("click", "#savenote", function() {
       // Empty the notes section
       $("#notes").empty();
     });
+
+    $(document).on("click", "#savenote", function() {
+
+    var thisNote = $(this).attr("data-id");
+
+  
+    $.ajax({
+      method: "GET",
+      url: "/note/" + thisNote
+
+    })
+
+    .then(function(data){
+      console.log(data);
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
 
   // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
