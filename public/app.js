@@ -33,7 +33,7 @@ $(document).on("click", "p", function() {
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-      $("#notes").append("<button data-id='" + data._id + "' id='deletenote'>Delete Note</button>");
+      
 
       // If there's a note in the article
       if (data.note) {
@@ -89,23 +89,23 @@ $(document).on("click", "#savenote", function() {
     })
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
 
   // Also, remove the values entered in the input and textarea for note entry
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+
+// $(".notes").on("click", function() {
+//   var noteId = $(this).attr("data-note-id");
+//   var articleId = $(this).attr("data-article-id");
+//   $.ajax({
+//       method: "DELETE",
+//       url: "/notes/delete/" + noteId + "/" + articleId
+//   }).done(function(data) {
+//       console.log(data)
+//       $(".modalNote").modal("hide");
+//       window.location = "/saved"
+//   })
+// });
+

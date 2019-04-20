@@ -165,16 +165,34 @@ app.get("/note/:id", (req, res) => {
 
 })
 
-app.delete("/note/:id", (req, res) => {
-  db.Note.destroy({ _id: req.params.id })
-  .then(function(articleInfo){
-    res.json(articleInfo);
-  })
-  .catch(function(err){
-    res.json(err);
-  })
+// app.delete("/note/:id", (req, res) => {
+//   db.Note.findOneAndRemovie({ _id: req.params.note_id })
+//          // Log any errors
+//          if (err) {
+//           console.log(err);
+//           res.send(err);
+//       }
+//       else {
+//           Article.findOneAndUpdate({ "_id": req.params.article_id }, { $pull: { "notes": req.params.note_id } })
+//               // Execute the above query
+//               .exec(function (err) {
+//                   // Log any errors
+//                   if (err) {
+//                       console.log(err);
+//                       res.send(err);
+//                   }
+//                   else {
+//                       // Or send the note to the browser
+//                       res.send("Note Deleted");
+//                   }
+//               });
+//       }
+//   });
 
-})
+
+
+
+
 
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", (req, res) => {
